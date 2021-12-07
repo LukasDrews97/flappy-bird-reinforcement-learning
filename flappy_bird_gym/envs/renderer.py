@@ -73,8 +73,8 @@ class FlappyBirdRenderer:
                                         bg_type=background)
         self.audio_on = audio_on
         self._audio_queue = []
-        if audio_on:
-            self.sounds = utils.load_sounds()
+        # if audio_on:
+        #     self.sounds = utils.load_sounds()
 
         self.game = None
         self._clock = pygame.time.Clock()
@@ -180,6 +180,6 @@ class FlappyBirdRenderer:
         pygame.display.update()
 
         # Sounds:
-        if self.audio_on and self.game.sound_cache is not None:
-            sound_name = self.game.sound_cache
-            self.sounds[sound_name].play()
+        # if self.audio_on and self.game.sound_cache is not None:
+        #     sound_name = self.game.sound_cache
+        #     self.sounds[sound_name].play()
