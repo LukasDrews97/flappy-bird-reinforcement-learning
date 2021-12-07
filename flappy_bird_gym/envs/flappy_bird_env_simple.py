@@ -82,7 +82,10 @@ class FlappyBirdEnvSimple(gym.Env):
         self._pipe_gap = pipe_gap
 
         self._game = None
-        self._renderer = None
+        self._renderer = FlappyBirdRenderer(screen_size=self._screen_size,
+                                            bird_color=bird_color,
+                                            pipe_color=pipe_color,
+                                            background=background)
 
         self._bird_color = bird_color
         self._pipe_color = pipe_color
