@@ -138,23 +138,24 @@ def load_images(convert: bool = True,
 
 
 def load_sounds() -> Dict[str, pyg_mixer.Sound]:
-    """ Loads and returns the audio assets of the game. """
-    pyg_mixer.init()
-    sounds = {}
+    # """ Loads and returns the audio assets of the game. """
+    # pyg_mixer.init()
+    # sounds = {}
 
-    if "win" in sys.platform:
-        soundExt = ".wav"
-    else:
-        soundExt = ".ogg"
+    # if "win" in sys.platform:
+    #     soundExt = ".wav"
+    # else:
+    #     soundExt = ".ogg"
 
-    try:
-        sounds["die"] = pyg_mixer.Sound(AUDIO_PATH + "/die" + soundExt)
-        sounds["hit"] = pyg_mixer.Sound(AUDIO_PATH + "/hit" + soundExt)
-        sounds["point"] = pyg_mixer.Sound(AUDIO_PATH + "/point" + soundExt)
-        sounds["swoosh"] = pyg_mixer.Sound(AUDIO_PATH + "/swoosh" + soundExt)
-        sounds["wing"] = pyg_mixer.Sound(AUDIO_PATH + "/wing" + soundExt)
-    except FileNotFoundError as ex:
-        raise FileNotFoundError("Can't find the audio folder! No such file or "
-                                f"directory: {AUDIO_PATH}") from ex
+    # try:
+    #     sounds["die"] = pyg_mixer.Sound(AUDIO_PATH + "/die" + soundExt)
+    #     sounds["hit"] = pyg_mixer.Sound(AUDIO_PATH + "/hit" + soundExt)
+    #     sounds["point"] = pyg_mixer.Sound(AUDIO_PATH + "/point" + soundExt)
+    #     sounds["swoosh"] = pyg_mixer.Sound(AUDIO_PATH + "/swoosh" + soundExt)
+    #     sounds["wing"] = pyg_mixer.Sound(AUDIO_PATH + "/wing" + soundExt)
+    # except FileNotFoundError as ex:
+    #     raise FileNotFoundError("Can't find the audio folder! No such file or "
+    #                             f"directory: {AUDIO_PATH}") from ex
 
-    return sounds
+    # return sounds
+    pass
