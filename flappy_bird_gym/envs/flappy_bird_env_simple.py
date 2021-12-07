@@ -166,6 +166,7 @@ class FlappyBirdEnvSimple(gym.Env):
 
         self._renderer.draw_surface(show_score=True)
         self._renderer.update_display()
+        return pygame.surfarray.array3d(self._renderer.surface)
 
     def close(self):
         """ Closes the environment. """
