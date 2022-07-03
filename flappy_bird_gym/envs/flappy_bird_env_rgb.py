@@ -30,8 +30,8 @@ import gym
 import numpy as np
 import pygame
 
-from flappy_bird_gym.envs.game_logic import FlappyBirdLogic
-from flappy_bird_gym.envs.renderer import FlappyBirdRenderer
+from ..envs.game_logic import FlappyBirdLogic
+from ..envs.renderer import FlappyBirdRenderer
 
 
 class FlappyBirdEnvRGB(gym.Env):
@@ -65,7 +65,7 @@ class FlappyBirdEnvRGB(gym.Env):
                  pipe_color: str = "green",
                  background: Optional[str] = None) -> None:
         self.action_space = gym.spaces.Discrete(2)
-        self.observation_space = gym.spaces.Box(0, 255, [*screen_size, 3])
+        self.observation_space = gym.spaces.Box(0, 255, [*screen_size, 3], dtype=np.uint8)
 
         self._screen_size = screen_size
         self._pipe_gap = pipe_gap
