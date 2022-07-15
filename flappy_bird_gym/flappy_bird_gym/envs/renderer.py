@@ -73,8 +73,8 @@ class FlappyBirdRenderer:
                                         bg_type=background)
         self.audio_on = audio_on
         self._audio_queue = []
-        # if audio_on:
-        #     self.sounds = utils.load_sounds()
+        if audio_on:
+            self.sounds = utils.load_sounds()
 
         self.game = None
         self._clock = pygame.time.Clock()
@@ -123,7 +123,6 @@ class FlappyBirdRenderer:
         """
         if self.game is None:
             raise ValueError("A game logic must be assigned to the renderer!")
-
         # Background
         if self.images['background'] is not None:
             self.surface.blit(self.images['background'], (0, 0))
@@ -178,7 +177,6 @@ class FlappyBirdRenderer:
 
         self.display.blit(self.surface, [0, 0])
         pygame.display.update()
-
         # Sounds:
         # if self.audio_on and self.game.sound_cache is not None:
         #     sound_name = self.game.sound_cache

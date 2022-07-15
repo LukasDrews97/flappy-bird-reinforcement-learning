@@ -113,6 +113,7 @@ class FlappyBirdEnvRGB(gym.Env):
         reward = 1
 
         done = not alive
+        #reward = -1000 if done else 0
         info = {"score": self._game.score}
 
         return obs, reward, done, info
@@ -152,5 +153,4 @@ class FlappyBirdEnvRGB(gym.Env):
         if self._renderer is not None:
             pygame.display.quit()
             self._renderer = None
-
         super().close()
