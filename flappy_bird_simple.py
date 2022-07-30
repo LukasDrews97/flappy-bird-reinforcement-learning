@@ -4,6 +4,7 @@ from datetime import datetime
 from argparse import ArgumentParser
 import os
 import yaml
+import torch
 from flappy_bird_gym.flappy_bird_gym.envs import FlappyBirdEnvSimple, FlappyBirdEnvRGB
 from stable_baselines3 import PPO, DQN, A2C
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecFrameStack
@@ -24,6 +25,7 @@ from stable_baselines3.common.logger import configure
 
 import matplotlib.pyplot as plt
 
+torch.cuda.set_device(3)
 
 def main(type, algorithm, policy, learning_rate, gamma, total_timesteps, name_prefix, eval_freq, model_path, frame_stack, train=True, verbose=1):
     if type == "simple":
