@@ -1,0 +1,11 @@
+type: rgb
+hyperparameter:
+  algorithm: A2C
+  policy: MlpPolicy
+  learning_rate: 7e-4
+  gamma: 0.99
+checkpoints:
+  prefix: a2c_cnn_
+total_timesteps: 5_000_000
+eval_freq: 10_000
+frame_stack: 4
