@@ -127,11 +127,11 @@ def create_rgb_env(train, frame_stack=None):
 
 def sample_ppo_hyperparameters(trial: optuna.Trial) -> Dict[str, Any]:
     return {
-        'learning_rate': trial.suggest_loguniform('learning_rate', 1e-5, 1.),
-        #'n_steps': trial.suggest_categorical("n_steps", [8, 16, 32, 64, 128, 256, 512, 1024, 2048]),
+        'learning_rate': trial.suggest_categorical('learning_rate', [1e-5, 1e-4, 1e-3]),
+        'n_steps': trial.suggest_categorical("n_steps", [256, 512, 1024, 2048, 4096, 8.192]),
         #'batch_size': trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128, 256, 512]),
         #'n_epochs': trial.suggest_categorical("n_epochs", [1, 5, 10, 20]),
-        'gamma': trial.suggest_categorical("gamma", [0.9, 0.95, 0.98, 0.99, 0.995, 0.999, 0.9999]),
+        'gamma': trial.suggest_categorical("gamma", [0.9, 0.95, 0.98, 0.99]),
         #'gae_lambda': trial.suggest_categorical("gae_lambda", [0.8, 0.9, 0.92, 0.95, 0.98, 0.99, 1.0]),
         #'vf_coef': trial.suggest_uniform("vf_coef", 0, 1),
         #'policy_kwargs': {
@@ -144,12 +144,13 @@ def sample_ppo_hyperparameters(trial: optuna.Trial) -> Dict[str, Any]:
 
 def sample_a2c_hyperparameters(trial: optuna.Trial) -> Dict[str, Any]:
     return {
-        'learning_rate': trial.suggest_loguniform('learning_rate', 1e-5, 1.),
-        'gamma': trial.suggest_categorical("gamma", [0.9, 0.95, 0.98, 0.99, 0.995, 0.999, 0.9999]),
+        'learning_rate': trial.suggest_categorical('learning_rate', [1e-5, 1e-4, 1e-3]),
+        'n_steps': trial.suggest_categorical("n_steps", [256, 512, 1024, 2048, 4096, 8.192]),
+        'gamma': trial.suggest_categorical("gamma", [0.9, 0.95, 0.98, 0.99]),
     }
     
 
-def optimize_agent(trial: optuna.Trial, algorithm, total_timesteps = 10000, env_type = 'rgb', policy = 'CnnPolicy', dir='.'):
+def optimize_agent(trial: optuna.Trial, algorithm, total_timesteps = 1000000, env_type = 'rgb', policy = 'CnnPolicy', dir='.'):
     model_params = sample_a2c_hyperparameters(trial)
     if env_type == 'rgb':
         env, eval_env = create_rgb_env(train=True)
@@ -218,7 +219,6 @@ class LoggingCallBack(BaseCallback):
 
 
 if __name__=="__main__": 
-    '''
     parser = ArgumentParser()
     parser.add_argument("--test", action="store_true")
     parser.add_argument("--train", action="store_true")
@@ -237,8 +237,9 @@ if __name__=="__main__":
         frame_stack=data["frame_stack"]
     except KeyError:
         frame_stack=None
-    '''
 
+
+    '''
     start_time = time.strftime("%Y-%m-%d-%H_%M_%S")
     log_dir = f"./logs/{start_time}/"
     saved_models_dir = f"./saved_models/{start_time}/"
@@ -247,10 +248,10 @@ if __name__=="__main__":
 
     optuna.logging.set_verbosity(optuna.logging.DEBUG)
     study = optuna.create_study(direction="maximize")
-    optuna_cb = HyperparameterTuningCallback(10)
+    optuna_cb = HyperparameterTuningCallback(50)
     try:
-        reward_func = functools.partial(optimize_agent, algorithm='PPO', total_timesteps = 5000, env_type = 'rgb', policy = 'MlpPolicy', dir=saved_models_dir)
-        study.optimize(reward_func, n_trials=10, n_jobs=5, show_progress_bar=True, callbacks=[optuna_cb])
+        reward_func = functools.partial(optimize_agent, algorithm='PPO', total_timesteps = 1000000, env_type = 'rgb', policy = 'MlpPolicy', dir=saved_models_dir)
+        study.optimize(reward_func, n_trials=50, n_jobs=-1, show_progress_bar=True, callbacks=[optuna_cb])
         df = study.trials_dataframe()
         joblib.dump(study, f'{log_dir}study.pkl')
         df.to_csv(f'{log_dir}tuning_data.csv')
@@ -259,8 +260,8 @@ if __name__=="__main__":
     except KeyboardInterrupt:
         print('Interrupted by keyboard.')
         exit()
-
     '''
+
     main(type=data["type"], 
         algorithm=data["hyperparameter"]["algorithm"], 
         policy=data["hyperparameter"]["policy"], 
@@ -273,4 +274,3 @@ if __name__=="__main__":
         model_path=args["model_path"],
         frame_stack=frame_stack,
         verbose=1)
-    '''
