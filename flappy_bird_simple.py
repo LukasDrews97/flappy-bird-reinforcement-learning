@@ -219,6 +219,7 @@ class LoggingCallBack(BaseCallback):
 
 
 if __name__=="__main__": 
+    '''
     parser = ArgumentParser()
     parser.add_argument("--test", action="store_true")
     parser.add_argument("--train", action="store_true")
@@ -237,9 +238,9 @@ if __name__=="__main__":
         frame_stack=data["frame_stack"]
     except KeyError:
         frame_stack=None
-
-
     '''
+
+
     start_time = time.strftime("%Y-%m-%d-%H_%M_%S")
     log_dir = f"./logs/{start_time}/"
     saved_models_dir = f"./saved_models/{start_time}/"
@@ -260,8 +261,8 @@ if __name__=="__main__":
     except KeyboardInterrupt:
         print('Interrupted by keyboard.')
         exit()
-    '''
 
+    '''
     main(type=data["type"], 
         algorithm=data["hyperparameter"]["algorithm"], 
         policy=data["hyperparameter"]["policy"], 
@@ -274,3 +275,4 @@ if __name__=="__main__":
         model_path=args["model_path"],
         frame_stack=frame_stack,
         verbose=1)
+    '''
