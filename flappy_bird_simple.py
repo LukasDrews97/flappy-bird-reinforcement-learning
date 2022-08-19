@@ -145,7 +145,7 @@ def sample_ppo_hyperparameters(trial: optuna.Trial) -> Dict[str, Any]:
 def sample_a2c_hyperparameters(trial: optuna.Trial) -> Dict[str, Any]:
     return {
         'learning_rate': trial.suggest_categorical('learning_rate', [1e-5, 1e-4, 1e-3]),
-        'n_steps': trial.suggest_categorical("n_steps", [256, 512, 1024, 2048, 4096, 8.192]),
+        'n_steps': trial.suggest_categorical("n_steps", [256, 512, 1024, 2048, 4096, 8192]),
         'gamma': trial.suggest_categorical("gamma", [0.9, 0.95, 0.98, 0.99]),
     }
     
@@ -251,8 +251,8 @@ if __name__=="__main__":
     study = optuna.create_study(direction="maximize")
     optuna_cb = HyperparameterTuningCallback(50)
     try:
-        reward_func = functools.partial(optimize_agent, algorithm='PPO', total_timesteps = 1000000, env_type = 'rgb', policy = 'MlpPolicy', dir=saved_models_dir)
-        study.optimize(reward_func, n_trials=50, n_jobs=50, show_progress_bar=True, callbacks=[optuna_cb])
+        reward_func = functools.partial(optimize_agent, algorithm='PPO', total_timesteps = 200000, env_type = 'rgb', policy = 'MlpPolicy', dir=saved_models_dir)
+        study.optimize(reward_func, n_trials=20, n_jobs=-1, show_progress_bar=False, callbacks=[optuna_cb])
         df = study.trials_dataframe()
         joblib.dump(study, f'{log_dir}study.pkl')
         df.to_csv(f'{log_dir}tuning_data.csv')
