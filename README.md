@@ -22,10 +22,6 @@ $ python -m pip install -r requirements.txt
 |---|---|
 |`train_agent.py`|Train or run an reinforcement agent using config file.|
 |`hyperparameter_tuning.py`|Run hyperparameter tuning given parameters.|
-|`saved_models`|Folder to store trained models.|
-|`saved_models_hyperparameter`|Folder to store tuned models.|
-|`logs`|Folder to store training log files.|
-|`logs_hyperparameter`|Folder to store tuning log files.|
 |`config`|Folder containing training/run configs.|
 |`flappy_bird_gym`|Folder containing the flappy bird gym, originally created by [@Talendar] and slightly modified by  [@doravalerie] and me.|
 |`requirements.txt`|Lists all packages used for the project. Designed to be used with pip.|
